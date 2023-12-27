@@ -16,15 +16,15 @@
 
         .grid {
             display: grid;
-            grid-template-columns: repeat(21, 20px); /* 正方形のマス目なので幅と高さを同じに */
-            gap: 0; /* グリッド間の隙間をなくす */
+            grid-template-columns: repeat(21, 20px);
+            gap: 0;
         }
 
         .cell {
             width: 20px;
             height: 20px;
             box-sizing: border-box;
-            border: 1px solid #000; /* マス目の境界線 */
+            border: 1px solid #000;
         }
     </style>
 </head>
@@ -35,12 +35,30 @@
         // JavaScriptで格子を生成
         const gridContainer = document.getElementById('grid');
 
+        // 21x21の格子のデータ（2次元配列）を生成
+        const gridData = Array.from({ length: 21 }, () => Array(21).fill(0));
+
         // 21x21の格子を生成
-        for (let i = 0; i < 21 * 21; i++) {
-            const cell = document.createElement('div');
-            cell.classList.add('cell');
-            gridContainer.appendChild(cell);
+        for (let i = 0; i < 21; i++) {
+            for (let j = 0; j < 21; j++) {
+                const cell = document.createElement('div');
+                cell.classList.add('cell');
+                gridContainer.appendChild(cell);
+
+                // データに座標を設定
+                gridData[i][j] = { x: j, y: i };
+            }
         }
+
+        // データの例: gridData[y][x]
+
+        // 例として、特定のマスに対する処理を行う場合
+        const exampleX = 5;
+        const exampleY = 10;
+
+        // 例: 特定のマスにクラスを追加してスタイルを変更する
+        const exampleCell = document.querySelector(`.cell:nth-child(${(exampleY - 1) * 21 + exampleX})`);
+        exampleCell.classList.add('highlight');  // スタイルを適用するクラス（例: highlight）
     </script>
 </body>
 </html>
