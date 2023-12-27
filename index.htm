@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>21x21 Grid</title>
+    <title>21x21 Grid with Lines</title>
     <style>
         /* スタイルは必要に応じて調整できます */
         body {
@@ -17,14 +17,23 @@
         .grid {
             display: grid;
             grid-template-columns: repeat(21, 1fr);
-            gap: 1px; /* グリッド間の隙間 */
+            gap: 0; /* グリッド間の隙間をなくす */
         }
 
         .cell {
             width: 20px;
             height: 20px;
-            border: 1px solid #000;
             box-sizing: border-box;
+        }
+
+        .horizontal-line, .vertical-line {
+            background-color: #000;
+            height: 1px;
+            width: 100%;
+        }
+
+        .vertical-line {
+            transform: rotate(90deg);
         }
     </style>
 </head>
@@ -32,14 +41,30 @@
     <div class="grid" id="grid"></div>
 
     <script>
-        // JavaScriptで格子を生成
+        // JavaScriptで格子と線を生成
         const gridContainer = document.getElementById('grid');
 
         // 21x21の格子を生成
         for (let i = 0; i < 21 * 21; i++) {
             const cell = document.createElement('div');
             cell.classList.add('cell');
+
+            // 横線を追加
+            if (i >= 21) {
+                const horizontalLine = document.createElement('div');
+                horizontalLine.classList.add('horizontal-line');
+                cell.appendChild(horizontalLine);
+            }
+
+            // 縦線を追加
+            if (i % 21 !== 0) {
+                const verticalLine = document.createElement('div');
+                verticalLine.classList.add('vertical-line');
+                cell.appendChild(verticalLine);
+            }
+
             gridContainer.appendChild(cell);
-        </script>
+        }
+    </script>
 </body>
 </html>
