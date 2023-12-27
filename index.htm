@@ -16,7 +16,7 @@
 
         .grid {
             display: grid;
-            grid-template-columns: repeat(21, 1fr);
+            grid-template-columns: repeat(21, 20px); /* 正方形のマス目なので幅と高さを同じに */
             gap: 0; /* グリッド間の隙間をなくす */
         }
 
@@ -24,16 +24,7 @@
             width: 20px;
             height: 20px;
             box-sizing: border-box;
-        }
-
-        .horizontal-line, .vertical-line {
-            background-color: #000;
-            height: 1px;
-            width: 100%;
-        }
-
-        .vertical-line {
-            transform: rotate(90deg);
+            border: 1px solid #000; /* マス目の境界線 */
         }
     </style>
 </head>
@@ -41,28 +32,13 @@
     <div class="grid" id="grid"></div>
 
     <script>
-        // JavaScriptで格子と線を生成
+        // JavaScriptで格子を生成
         const gridContainer = document.getElementById('grid');
 
         // 21x21の格子を生成
         for (let i = 0; i < 21 * 21; i++) {
             const cell = document.createElement('div');
             cell.classList.add('cell');
-
-            // 横線を追加
-            if (i >= 21) {
-                const horizontalLine = document.createElement('div');
-                horizontalLine.classList.add('horizontal-line');
-                cell.appendChild(horizontalLine);
-            }
-
-            // 縦線を追加
-            if (i % 21 !== 0) {
-                const verticalLine = document.createElement('div');
-                verticalLine.classList.add('vertical-line');
-                cell.appendChild(verticalLine);
-            }
-
             gridContainer.appendChild(cell);
         }
     </script>
